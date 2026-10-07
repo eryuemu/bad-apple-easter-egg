@@ -1,6 +1,23 @@
+<div align="center">
+
+<img src="./assets/cover.jpg" alt="Bad Apple Easter Egg" width="220" />
+
 # bad-apple-easter-egg
 
-一个轻量、零依赖的网页端 Bad Apple!! 彩蛋库。支持从当前页面动态提取活体文字并沿流场汇聚成开场人物剪影，无缝衔接 60 FPS 汉字流点阵播放，以及保留网页底色的全息透明剪影播放。
+万物皆可 Bad Apple!! 将网页活体博文文字撕裂重构成 60 FPS 汉字流与全息透明剪影的双模态前端彩蛋库。
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](#)
+[![Bundle Size](https://img.shields.io/badge/bundle-~8.6KB%20gzip-brightgreen.svg)](#)
+[![FPS](https://img.shields.io/badge/render-60%20FPS-orange.svg)](#)
+[![Built with Gemini](https://img.shields.io/badge/built%20with-Gemini%203.8%20Flash-7952b3.svg)](#开发致谢)
+
+[在线体验（博客源点）](https://eryuemu.com) · [快速接入](#安装与使用) · [配置参数](#配置参数-options) · [技术渊源](#项目渊源与博客-commit)
+
+</div>
+
+---
 
 本项目最初诞生于个人博客 [eryuemu.com](https://eryuemu.com)（对应开源仓库 [eryuemu/eryuemu-blog](https://github.com/eryuemu/eryuemu-blog)），为了方便在其他静态博客（Hexo, Hugo, VitePress, Astro）或任意前端页面中直接复用，将其解耦并抽象为独立的前端库。
 
