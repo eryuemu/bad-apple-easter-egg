@@ -17,6 +17,8 @@
 - [`8d59d75`](https://github.com/eryuemu/eryuemu-blog/commit/8d59d7516db59d4b7ccabba1558802affc2fb0f4) - `feat(easter-egg): 优化字符物理流变，引入前置 360ms 原地引力中心吸附拉扯动效`
   - 物理流变升级：新增前置 360ms 原地引力吸积阶段（文字粒子沿视口中心加速拉扯偏移 42%），营造博文文字被引力场骤然撕裂吸入的震撼破界感，而后无缝衔接旋涡汇聚与开场灵梦剪影。
 
+> 如果在具体项目中无法复现或遇到细节问题，可以让 AI 研究一下我的博客（[eryuemu/eryuemu-blog](https://github.com/eryuemu/eryuemu-blog)）是如何实现的。
+
 ---
 
 ## 核心模式与效果预览
