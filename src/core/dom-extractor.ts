@@ -102,29 +102,46 @@ export function gatherPageTextParticles(
       startY = Math.random() * vh;
     }
 
-    // Dynamic fluid vortex angle & distance
-    const dx = target.x - startX;
-    const dy = target.y - startY;
+    // Stage 1: Gravity suction midpoint (pull strongly towards screen center vw/2, vh/2 by 42%)
+    const dx = vw / 2 - startX;
+    const dy = vh / 2 - startY;
     const dist = Math.hypot(dx, dy);
-    const angle = Math.atan2(dy, dx) + (startX < vw / 2 ? 0.72 : -0.72);
-    const swirlDist = dist * 0.55 + 35;
+    const baseAngle = Math.atan2(dy, dx);
+    const swirlOffset = startX < vw / 2 ? 0.45 : -0.45;
+    const pullDist = dist * 0.42;
 
-    const cp1X = startX + Math.cos(angle) * swirlDist;
-    const cp1Y = startY + Math.sin(angle) * swirlDist;
-    const cp2X = target.x - Math.cos(angle * 0.8) * (swirlDist * 0.45);
-    const cp2Y = target.y - Math.sin(angle * 0.8) * (swirlDist * 0.45);
+    const endAngle = baseAngle + swirlOffset;
+    const midX = startX + Math.cos(endAngle) * pullDist;
+    const midY = startY + Math.sin(endAngle) * pullDist;
+
+    // Stage 2: From suction midpoint, swirl along fluid field into target opening silhouette
+    const mdx = target.x - midX;
+    const mdy = target.y - midY;
+    const mdist = Math.hypot(mdx, mdy);
+    const mangle = Math.atan2(mdy, mdx) + swirlOffset * 1.2;
+    const swirlDist = mdist * 0.5 + 30;
+
+    const cp1X = midX + Math.cos(mangle) * swirlDist;
+    const cp1Y = midY + Math.sin(mangle) * swirlDist;
+    const cp2X = target.x - Math.cos(mangle * 0.8) * (swirlDist * 0.45);
+    const cp2Y = target.y - Math.sin(mangle * 0.8) * (swirlDist * 0.45);
 
     particles.push({
       char,
       startX,
       startY,
+      midX,
+      midY,
       targetX: target.x,
       targetY: target.y,
       cp1X,
       cp1Y,
       cp2X,
       cp2Y,
-      delay: Math.random() * 0.1, // Staggered arrival wave
+      pullDist,
+      baseAngle,
+      swirlOffset,
+      delay: Math.random() * 0.08,
     });
   }
 

@@ -102,11 +102,16 @@ export interface Particle {
   char: string;
   startX: number;
   startY: number;
+  midX: number;
+  midY: number;
   targetX: number;
   targetY: number;
   cp1X: number;
   cp1Y: number;
   cp2X: number;
   cp2Y: number;
+  pullDist: number;
+  baseAngle: number;
+  swirlOffset: number;
   delay: number;
 }

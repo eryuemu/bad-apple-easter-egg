@@ -306,7 +306,8 @@ export class BadAppleRenderer {
     if (this.isMorphing) {
       if (!this.morphStartTime) this.morphStartTime = timestamp;
 
-      const CONVERGE_DURATION = 1.3;
+      const SUCK_TIME = 0.36; // Initial 0.36s: characters accelerate and pull strongly inward towards screen center
+      const CONVERGE_DURATION = 1.30;
       const DROP_TIME = 1.35;
 
       let timeSeconds = 0;
@@ -326,7 +327,6 @@ export class BadAppleRenderer {
         }
       }
 
-      const morphProgress = Math.min(timeSeconds / CONVERGE_DURATION, 1);
       const isDarkTheme = document.documentElement.classList.contains('dark');
 
       this.projCtx.clearRect(0, 0, vw, vh);
@@ -346,35 +346,60 @@ export class BadAppleRenderer {
       this.projCtx.textAlign = 'center';
       this.projCtx.textBaseline = 'middle';
 
-      if (isDarkTheme) {
-        this.projCtx.fillStyle = '#ffffff';
-      } else {
-        const gray = Math.round(24 + (255 - 24) * morphProgress);
-        this.projCtx.fillStyle = `rgb(${gray}, ${gray}, ${gray})`;
-      }
-
       const count = this.morphParticles.length;
-      for (let i = 0; i < count; i++) {
-        const p = this.morphParticles[i];
-        const pProg =
-          morphProgress <= p.delay ? 0 : (morphProgress - p.delay) / (1 - p.delay);
-        const pe = pProg >= 1 ? 1 : quarticEaseOut(pProg);
-        const u = 1 - pe;
-        const u2 = u * u;
-        const pe2 = pe * pe;
 
-        const px =
-          u2 * u * p.startX +
-          3 * u2 * pe * p.cp1X +
-          3 * u * pe2 * p.cp2X +
-          pe2 * pe * p.targetX;
-        const py =
-          u2 * u * p.startY +
-          3 * u2 * pe * p.cp1Y +
-          3 * u * pe2 * p.cp2Y +
-          pe2 * pe * p.targetY;
+      if (timeSeconds <= SUCK_TIME) {
+        // Stage A1 (0.0s ~ 0.36s): Text pulled inward towards center
+        const sProg = timeSeconds / SUCK_TIME;
+        const se = Math.pow(sProg, 2.2);
 
-        this.projCtx.fillText(p.char, px, py);
+        if (isDarkTheme) {
+          this.projCtx.fillStyle = '#ffffff';
+        } else {
+          const gray = Math.round(24 + (180 - 24) * se);
+          this.projCtx.fillStyle = `rgb(${gray}, ${gray}, ${gray})`;
+        }
+
+        for (let i = 0; i < count; i++) {
+          const p = this.morphParticles[i];
+          const curDist = p.pullDist * se;
+          const curAngle = p.baseAngle + p.swirlOffset * se;
+          const px = p.startX + Math.cos(curAngle) * curDist;
+          const py = p.startY + Math.sin(curAngle) * curDist;
+          this.projCtx.fillText(p.char, px, py);
+        }
+      } else {
+        // Stage A2 (0.36s ~ 1.30s): Swirl from inward position into opening silhouette
+        const cProg = Math.min((timeSeconds - SUCK_TIME) / (CONVERGE_DURATION - SUCK_TIME), 1);
+
+        if (isDarkTheme) {
+          this.projCtx.fillStyle = '#ffffff';
+        } else {
+          const gray = Math.round(180 + (255 - 180) * cProg);
+          this.projCtx.fillStyle = `rgb(${gray}, ${gray}, ${gray})`;
+        }
+
+        for (let i = 0; i < count; i++) {
+          const p = this.morphParticles[i];
+          const pProg = cProg <= p.delay ? 0 : (cProg - p.delay) / (1 - p.delay);
+          const pe = pProg >= 1 ? 1 : quarticEaseOut(pProg);
+          const u = 1 - pe;
+          const u2 = u * u;
+          const pe2 = pe * pe;
+
+          const px =
+            u2 * u * p.midX +
+            3 * u2 * pe * p.cp1X +
+            3 * u * pe2 * p.cp2X +
+            pe2 * pe * p.targetX;
+          const py =
+            u2 * u * p.midY +
+            3 * u2 * pe * p.cp1Y +
+            3 * u * pe2 * p.cp2Y +
+            pe2 * pe * p.targetY;
+
+          this.projCtx.fillText(p.char, px, py);
+        }
       }
 
       if (timeSeconds >= DROP_TIME) {

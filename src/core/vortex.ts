@@ -28,14 +28,17 @@ export function evaluateBezier(
   const pe2 = pe * pe;
   const pe3 = pe2 * pe;
 
+  const originX = p.midX ?? p.startX;
+  const originY = p.midY ?? p.startY;
+
   const x =
-    u3 * p.startX +
+    u3 * originX +
     3 * u2 * pe * p.cp1X +
     3 * u * pe2 * p.cp2X +
     pe3 * p.targetX;
 
   const y =
-    u3 * p.startY +
+    u3 * originY +
     3 * u2 * pe * p.cp1Y +
     3 * u * pe2 * p.cp2Y +
     pe3 * p.targetY;
