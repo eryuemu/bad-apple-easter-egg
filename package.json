@@ -1,0 +1,46 @@
+{
+  "name": "bad-apple-easter-egg",
+  "version": "1.0.0",
+  "description": "A mind-blowing in-browser Bad Apple!! Easter Egg that deconstructs live webpage text into fluid particles, converging into Reimu Hakurei, and igniting into a 60 FPS Hanzi matrix video stream.",
+  "type": "module",
+  "main": "./dist/bad-apple-easter-egg.umd.cjs",
+  "module": "./dist/bad-apple-easter-egg.js",
+  "types": "./dist/index.d.ts",
+  "style": "./dist/style.css",
+  "unpkg": "./dist/bad-apple-easter-egg.iife.js",
+  "jsdelivr": "./dist/bad-apple-easter-egg.iife.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/bad-apple-easter-egg.js",
+      "require": "./dist/bad-apple-easter-egg.umd.cjs"
+    },
+    "./iife": "./dist/bad-apple-easter-egg.iife.js",
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && tsc --emitDeclarationOnly",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "bad-apple",
+    "easter-egg",
+    "canvas",
+    "particle-system",
+    "creative-coding",
+    "text-matrix",
+    "ascii-video",
+    "fluid-dynamics",
+    "touhou"
+  ],
+  "author": "eryuemu",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.8.0",
+    "vite": "^6.2.0"
+  }
+}
