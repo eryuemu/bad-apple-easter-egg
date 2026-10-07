@@ -1,7 +1,7 @@
 {
   "name": "bad-apple-easter-egg",
   "version": "1.0.0",
-  "description": "A mind-blowing in-browser Bad Apple!! Easter Egg that deconstructs live webpage text into fluid particles, converging into Reimu Hakurei, and igniting into a 60 FPS Hanzi matrix video stream.",
+  "description": "轻量零依赖的网页端 Bad Apple!! 彩蛋库：活体文字流变 60 FPS 汉字点阵与全息透明剪影双模态",
   "type": "module",
   "main": "./dist/bad-apple-easter-egg.umd.cjs",
   "module": "./dist/bad-apple-easter-egg.js",

@@ -146,6 +146,12 @@ npm run build
 
 ---
 
+## 开发致谢
+
+本项目全量代码编写、工程架构抽象与性能调优均由 **Antigravity** 的 **Gemini 3.8 Flash** 模型完成。本人（[@eryuemu](https://github.com/eryuemu)）仅负责提出离谱要求、提供博客试验场以及最终验收测试成果。
+
+---
+
 ## License
 
 [MIT](./LICENSE)
